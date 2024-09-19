@@ -1,0 +1,26 @@
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.inputField,
+.datePicker {
+  margin-bottom: 16px;
+}
+
+.label {
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.radioGroup {
+  margin-bottom: 16px;
+}
+
+.button {
+  width: 100%;
+  height: 40px;
+}
