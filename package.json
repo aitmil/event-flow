@@ -1,0 +1,16 @@
+{
+  "name": "event-flow",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\""
+  },
+  "keywords": [],
+  "author": "Anna Taranchuk <taranchuk4@gmail.com>",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
