@@ -4,7 +4,7 @@ import Event from '../db/models/event.js';
 
 export const getAllEvents = async ({
   page = 1,
-  perPage = 10,
+  perPage = 12,
   sortOrder = SORT_ORDER.ASC,
   sortBy = 'eventDate',
 }) => {
