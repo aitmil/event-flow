@@ -9,6 +9,7 @@ const fetchEvents = async () => {
       {
         params: {
           apikey: env('TICKETMASTER_API_KEY'),
+          size: 100,
         },
       }
     );

@@ -10,5 +10,5 @@ export const registerParticipantSchema = Joi.object({
     .required(),
   dateOfBirth: Joi.date().less('now').required(),
   source: Joi.string().required(),
-  eventId: Joi.string().required(),
+  eventId: Joi.string(),
 });

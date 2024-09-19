@@ -16,7 +16,7 @@ const jsonParser = express.json();
 router.get('/events', ctrlWrapper(getAllEventsController));
 
 router.post(
-  '/register',
+  '/register/:eventId',
   jsonParser,
   validateBody(registerParticipantSchema),
   ctrlWrapper(registerParticipantController)

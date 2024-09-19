@@ -3,25 +3,21 @@ import {
   getParticipants,
   registerParticipant,
 } from '../services/participants.js';
-import Event from '../db/models/event.js';
 
 export const registerParticipantController = async (req, res, next) => {
-  const { fullName, email, dateOfBirth, source, eventId } = req.body;
+  const { fullName, email, dateOfBirth, source } = req.body;
 
-  const event = await Event.findById(eventId);
-
-  if (!event) {
-    return next(createHttpError(404, 'Event not found'));
-  }
+  const { eventId } = req.params;
 
   const participant = {
     fullName,
     email,
     dateOfBirth,
     source,
-    eventId: event._id,
+    eventId,
   };
 
+  console.log(participant);
   const result = await registerParticipant(participant);
 
   res.status(201).json({

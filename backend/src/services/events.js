@@ -23,7 +23,7 @@ export const getAllEvents = async ({
   const paginationData = calculatePaginationData(count, perPage, page);
 
   return {
-    data: events,
+    events,
     ...paginationData,
   };
 };
