@@ -22,6 +22,12 @@
 
 .details {
   text-decoration: underline;
+  color: #40a9ff;
+  transition: color 0.3s ease;
+}
+
+.details:hover {
+  color: #1677ff;
 }
 
 .organizer {
@@ -31,4 +37,10 @@
 .links {
   display: flex;
   justify-content: space-evenly;
+  color: #1677ff;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #40a9ff;
 }
