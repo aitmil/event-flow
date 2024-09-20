@@ -8,7 +8,7 @@ export default function Loader() {
         visible={true}
         height="100"
         width="100"
-        color="#7a1f50"
+        color="#1677ff"
         radius="9"
         ariaLabel="three-dots-loading"
         wrapperClass={css.loader}
