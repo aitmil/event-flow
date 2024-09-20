@@ -1,12 +1,15 @@
 import React from 'react';
 import { Form, Input, DatePicker, Radio, Button, message } from 'antd';
-import { registerParticipant } from '../api';
+import { registerParticipant } from '../../api';
 import styles from './RegisterContent.module.css';
 
 const RegisterContent = ({ eventId }) => {
+  const [form] = Form.useForm();
+
   const onFinish = async values => {
     try {
       await registerParticipant(eventId, values);
+      form.resetFields();
       message.success('Registration successful!');
     } catch {
       message.error('Registration failed! Please try again.');
@@ -15,6 +18,7 @@ const RegisterContent = ({ eventId }) => {
 
   return (
     <Form
+      form={form}
       className={styles.formContainer}
       onFinish={onFinish}
       layout="vertical"
