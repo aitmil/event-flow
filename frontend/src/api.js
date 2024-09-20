@@ -2,11 +2,13 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:3000';
 
-export const fetchEvents = async page => {
+export const fetchEvents = async (page, sortBy, sortOrder) => {
   const response = await axios.get('/events', {
     params: {
       page: page,
       perPage: 12,
+      sortOrder: sortOrder,
+      sortBy: sortBy,
     },
   });
   return response.data.data;
