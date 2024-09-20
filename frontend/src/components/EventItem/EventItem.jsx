@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import css from './EventItem.module.css';
 
 export default function EventItem({
@@ -31,8 +32,12 @@ export default function EventItem({
         </div>{' '}
       </div>
       <div className={css.links}>
-        <a href={`/register/${_id}`}>Register</a>
-        <a href={`/participants/${_id}`}>View</a>
+        <Link to={`/register/${_id}`} className={css.link}>
+          Register
+        </Link>
+        <Link to={`/participants/${_id}`} className={css.link}>
+          View
+        </Link>
       </div>
     </>
   );
