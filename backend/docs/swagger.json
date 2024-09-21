@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
+      "url": "https://event-flow-p4dh.onrender.com/"
     }
   ],
   "tags": [
@@ -31,9 +31,7 @@
   "paths": {
     "/events": {
       "get": {
-        "tags": [
-          "Events"
-        ],
+        "tags": ["Events"],
         "summary": "Fetch list of events",
         "operationId": "getAllEvents",
         "description": "Get list of events with this endpoint",
@@ -69,10 +67,7 @@
             "name": "sortOrder",
             "schema": {
               "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ],
+              "enum": ["asc", "desc"],
               "example": "asc"
             }
           }
@@ -84,11 +79,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -156,9 +147,7 @@
     },
     "/events/{eventId}": {
       "get": {
-        "tags": [
-          "Events"
-        ],
+        "tags": ["Events"],
         "summary": "Get event by id",
         "operationId": "getEventById",
         "description": "Get event details by id",
@@ -181,11 +170,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -213,9 +198,7 @@
     },
     "/register/{eventId}": {
       "post": {
-        "tags": [
-          "Register"
-        ],
+        "tags": ["Register"],
         "summary": "Register participant",
         "operationId": "registerParticipant",
         "description": "Register participant for the event",
@@ -236,12 +219,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "fullName",
-                  "email",
-                  "dateOfBirth",
-                  "source"
-                ],
+                "required": ["fullName", "email", "dateOfBirth", "source"],
                 "properties": {
                   "fullName": {
                     "type": "string",
@@ -263,11 +241,7 @@
                   "source": {
                     "type": "string",
                     "description": "Where the participant heard about the event",
-                    "enum": [
-                      "Social media",
-                      "Friends",
-                      "Found by myself"
-                    ],
+                    "enum": ["Social media", "Friends", "Found by myself"],
                     "example": "Friends"
                   }
                 }
@@ -282,11 +256,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -316,9 +286,7 @@
     },
     "/participants/{eventId}": {
       "get": {
-        "tags": [
-          "Participants"
-        ],
+        "tags": ["Participants"],
         "summary": "Get participant by id",
         "operationId": "getParticipantById",
         "description": "Get participant details registered for the event by id",
@@ -341,11 +309,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -452,11 +416,7 @@
           "source": {
             "type": "string",
             "description": "Where the participant heard about the event",
-            "enum": [
-              "Social media",
-              "Friends",
-              "Found by myself"
-            ],
+            "enum": ["Social media", "Friends", "Found by myself"],
             "example": "Friends"
           },
           "eventId": {
@@ -491,11 +451,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
+              "required": ["status", "message", "data"],
               "properties": {
                 "status": {
                   "type": "integer",
