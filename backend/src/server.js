@@ -17,7 +17,12 @@ if (isNaN(PORT)) {
 export const setupServer = () => {
   const app = express();
 
-  app.use(cors());
+  app.use(
+    cors({
+      origin: 'https://event-flow-pi.vercel.app/',
+      methods: ['GET', 'POST'],
+    })
+  );
 
   app.use(
     pino({
