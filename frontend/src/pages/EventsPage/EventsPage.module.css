@@ -15,7 +15,6 @@
   margin-bottom: 24px;
 }
 
-.pagination {
-  display: flex;
-  justify-content: center;
+.text {
+  text-align: center;
 }

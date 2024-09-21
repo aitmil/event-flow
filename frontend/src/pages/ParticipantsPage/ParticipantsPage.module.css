@@ -1,12 +1,12 @@
 .container {
   margin: 0 auto;
-  padding: 24px 15px;
-  max-width: 1280px;
+  padding: 16px 16px;
+  max-width: 343px;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .backLink {
@@ -15,7 +15,7 @@
   border: 1px solid #d9d9d9;
   border-radius: 8px;
   text-align: start;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -24,4 +24,55 @@
 
 .backLink:hover {
   border: 1px solid #1677ff;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.img {
+  margin-bottom: 16px;
+}
+
+@media (min-width: 720px) {
+  .container {
+    max-width: 688px;
+  }
+
+  .search {
+    max-width: 650px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1248px;
+    padding: 24px 16px;
+  }
+
+  .header {
+    margin-bottom: 24px;
+  }
+
+  .backLink {
+    margin-bottom: 24px;
+  }
+
+  .search {
+    margin: 0 auto 24px;
+  }
+
+  .wrapper {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+  }
 }
