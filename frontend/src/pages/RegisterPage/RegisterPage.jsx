@@ -1,4 +1,3 @@
-// RegistrationPage.jsx
 import { useRef } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { HiArrowLeft } from 'react-icons/hi';
