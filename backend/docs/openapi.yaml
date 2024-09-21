@@ -15,6 +15,7 @@ tags:
     description: Operations about participants of events.
 servers:
   - url: https://event-flow-p4dh.onrender.com
+  - url: https://http://localhost:3000
 paths:
   /events:
     get:
