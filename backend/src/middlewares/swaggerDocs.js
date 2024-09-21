@@ -4,7 +4,7 @@ import path from 'node:path';
 import createHttpError from 'http-errors';
 import swaggerUI from 'swagger-ui-express';
 
-const SWAGGER_PATH = path.resolve('docs', 'swagger.json');
+const SWAGGER_PATH = path.join(process.cwd(), 'docs', 'swagger.json');
 
 export function swaggerDocs() {
   try {
