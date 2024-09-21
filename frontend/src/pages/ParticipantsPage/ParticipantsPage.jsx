@@ -116,7 +116,7 @@ export default function ParticipantsPage() {
         )}
 
         {noParticipants ? (
-          <p>No participants.</p>
+          <p className={css.condition}>No participants.</p>
         ) : (
           <ParticipantsList participants={filteredParticipants} />
         )}
