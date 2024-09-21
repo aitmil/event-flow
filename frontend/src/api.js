@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'https://event-flow-p4dh.onrender.com';
 
 export const fetchEvents = async (page, sortBy, sortOrder) => {
   const response = await axios.get('/events', {

@@ -14,8 +14,7 @@ tags:
   - name: Participants
     description: Operations about participants of events.
 servers:
-  - url: http://localhost:3000
-  # - url: https://contacts-app-u25b.onrender.com
+  - url: https://event-flow-p4dh.onrender.com
 paths:
   /events:
     get:
