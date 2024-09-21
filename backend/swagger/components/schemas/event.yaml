@@ -1,0 +1,43 @@
+type: object
+properties:
+  _id:
+    type: string
+    description: The unique identifier for the event
+    example: 66ecb962b8447feb7978c726
+  title:
+    type: string
+    description: The title of the event
+    example: 'New York Jets vs. New England Patriots'
+  image:
+    type: string
+    format: uri
+    description: The URL of the event's image
+    example: 'https://s1.ticketm.net/dam/a/d64/bc7ee1fb-9740-4578-9a39-9006c9821d64_RETINA_PORTRAIT_16_9.jpg'
+  description:
+    type: string
+    description: A brief description of the event
+    example: 'Football (Sports, NFL)'
+  eventDate:
+    type: string
+    format: date-time
+    description: The date and time of the event
+    example: '2024-09-20T00:15:00.000Z'
+  organizer:
+    type: string
+    description: The organizer of the event
+    example: 'MetLife Stadium'
+  url:
+    type: string
+    format: uri
+    description: The URL for more details about the event
+    example: 'https://www.ticketmaster.com/new-york-jets-vs-new-england-east-rutherford-new-jersey-09-19-2024/event/0000607DC76C674E'
+  createdAt:
+    type: string
+    format: date-time
+    description: The date and time when the event was created
+    example: '2024-09-19T23:53:06.521Z'
+  updatedAt:
+    type: string
+    format: date-time
+    description: The date and time when the event was last updated
+    example: '2024-09-19T23:53:06.521Z'

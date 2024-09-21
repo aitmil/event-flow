@@ -6,7 +6,9 @@
   "scripts": {
     "lint": "eslint src/**/*.js",
     "start": "node ./src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "build-docs": "redocly bundle --ext json -o docs/swagger.json",
+    "preview-docs": "redocly preview-docs"
   },
   "keywords": [],
   "author": "Anna Taranchuk <taranchuk4@gmail.com>",
@@ -23,10 +25,12 @@
     "mongoose": "^8.6.3",
     "node-cron": "^3.0.3",
     "pino-http": "^10.3.0",
-    "pino-pretty": "^11.2.2"
+    "pino-pretty": "^11.2.2",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.10.0",
+    "@redocly/cli": "^1.25.3",
     "eslint": "^9.10.0",
     "globals": "^15.9.0",
     "nodemon": "^3.1.5"

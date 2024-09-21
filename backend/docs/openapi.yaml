@@ -1,0 +1,31 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: EventFlow
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: This is a documentation of EventFlow app.
+tags:
+  - name: Events
+    description: Operations about events.
+  - name: Register
+    description: Operations about registering the participants for the event.
+  - name: Participants
+    description: Operations about participants of events.
+servers:
+  - url: http://localhost:3000
+  # - url: https://contacts-app-u25b.onrender.com
+paths:
+  /events:
+    get:
+      $ref: ../swagger/paths/events/get.yaml
+  /events/{eventId}:
+    get:
+      $ref: ../swagger/paths/events/{eventId}/get.yaml
+  /register/{eventId}:
+    post:
+      $ref: ../swagger/paths/register/{eventId}/post.yaml
+  /participants/{eventId}:
+    get:
+      $ref: ../swagger/paths/participants/{eventId}/get.yaml

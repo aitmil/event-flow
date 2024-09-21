@@ -1,0 +1,68 @@
+tags:
+  - Register
+summary: Register participant
+operationId: registerParticipant
+description: 'Register participant for the event'
+security: []
+parameters:
+  - in: path
+    name: eventId
+    required: true
+    schema:
+      type: string
+      example: 66edf0e4367f79792a65570e
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - fullName
+          - email
+          - dateOfBirth
+          - source
+        properties:
+          fullName:
+            type: string
+            description: The full name of the participant
+            example: 'Anna'
+          email:
+            type: string
+            format: email
+            description: The email address of the participant
+            example: 'hello@mail.com'
+          dateOfBirth:
+            type: string
+            format: date-time
+            description: The date of birth of the participant
+            example: '2000-09-18'
+          source:
+            type: string
+            description: Where the participant heard about the event
+            enum: ['Social media', 'Friends', 'Found by myself']
+            example: 'Friends'
+responses:
+  '201':
+    description: A message indicating the result of the operation
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: 'Participant of event registered successfully!'
+            data:
+              type: object
+              $ref: ..\..\..\components\schemas\participant.yaml
+  '404':
+    $ref: ../../../components/responses/404.yaml
+  '409':
+    $ref: ../../../components/responses/409.yaml

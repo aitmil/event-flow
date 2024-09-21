@@ -1,0 +1,37 @@
+tags:
+  - Participants
+summary: Get participant by id
+operationId: getParticipantById
+description: 'Get participant details registered for the event by id'
+security: []
+parameters:
+  - in: path
+    name: eventId
+    required: true
+    schema:
+      type: string
+      example: 66edf0e4367f79792a65570e
+responses:
+  '200':
+    description: A message indicating the result of the operation
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              description: HTTP status code
+              example: 200
+            message:
+              type: string
+              example: Participant found successfully!
+            data:
+              type: object
+              $ref: ../../../components/schemas/participant.yaml
+  '404':
+    $ref: ..\..\..\components\responses\404.yaml

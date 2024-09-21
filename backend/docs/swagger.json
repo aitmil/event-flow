@@ -1,0 +1,539 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "EventFlow",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "description": "This is a documentation of EventFlow app."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Events",
+      "description": "Operations about events."
+    },
+    {
+      "name": "Register",
+      "description": "Operations about registering the participants for the event."
+    },
+    {
+      "name": "Participants",
+      "description": "Operations about participants of events."
+    }
+  ],
+  "paths": {
+    "/events": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Fetch list of events",
+        "operationId": "getAllEvents",
+        "description": "Get list of events with this endpoint",
+        "security": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "integer",
+              "example": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "sortBy",
+            "schema": {
+              "type": "string",
+              "example": "name"
+            },
+            "description": "Fields 'title', 'eventDate', 'organizer' can be mentioned. Default value - 'eventDate'"
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "example": "asc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A message indicating the result of the operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Events fetched successfully!"
+                    },
+                    "data": {
+                      "type": "array",
+                      "required": [
+                        "data",
+                        "page",
+                        "perPage",
+                        "totalItems",
+                        "totalPages",
+                        "hasNextPage",
+                        "hasPreviousPage"
+                      ],
+                      "properties": {
+                        "data": {
+                          "type": "object",
+                          "items": {
+                            "$ref": "#/components/schemas/event"
+                          }
+                        },
+                        "page": {
+                          "type": "number",
+                          "example": 2
+                        },
+                        "perPage": {
+                          "type": "number",
+                          "example": 4
+                        },
+                        "totalItems": {
+                          "type": "number",
+                          "example": 4
+                        },
+                        "totalPages": {
+                          "type": "number",
+                          "example": 4
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/events/{eventId}": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Get event by id",
+        "operationId": "getEventById",
+        "description": "Get event details by id",
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "eventId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "66edf0e4367f79792a65570e"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A message indicating the result of the operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Event found successfully!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/event"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/register/{eventId}": {
+      "post": {
+        "tags": [
+          "Register"
+        ],
+        "summary": "Register participant",
+        "operationId": "registerParticipant",
+        "description": "Register participant for the event",
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "eventId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "66edf0e4367f79792a65570e"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "fullName",
+                  "email",
+                  "dateOfBirth",
+                  "source"
+                ],
+                "properties": {
+                  "fullName": {
+                    "type": "string",
+                    "description": "The full name of the participant",
+                    "example": "Anna"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "The email address of the participant",
+                    "example": "hello@mail.com"
+                  },
+                  "dateOfBirth": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The date of birth of the participant",
+                    "example": "2000-09-18"
+                  },
+                  "source": {
+                    "type": "string",
+                    "description": "Where the participant heard about the event",
+                    "enum": [
+                      "Social media",
+                      "Friends",
+                      "Found by myself"
+                    ],
+                    "example": "Friends"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "A message indicating the result of the operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Participant of event registered successfully!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/participant"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        }
+      }
+    },
+    "/participants/{eventId}": {
+      "get": {
+        "tags": [
+          "Participants"
+        ],
+        "summary": "Get participant by id",
+        "operationId": "getParticipantById",
+        "description": "Get participant details registered for the event by id",
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "eventId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "66edf0e4367f79792a65570e"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A message indicating the result of the operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "description": "HTTP status code",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Participant found successfully!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/participant"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "event": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the event",
+            "example": "66ecb962b8447feb7978c726"
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the event",
+            "example": "New York Jets vs. New England Patriots"
+          },
+          "image": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL of the event's image",
+            "example": "https://s1.ticketm.net/dam/a/d64/bc7ee1fb-9740-4578-9a39-9006c9821d64_RETINA_PORTRAIT_16_9.jpg"
+          },
+          "description": {
+            "type": "string",
+            "description": "A brief description of the event",
+            "example": "Football (Sports, NFL)"
+          },
+          "eventDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time of the event",
+            "example": "2024-09-20T00:15:00.000Z"
+          },
+          "organizer": {
+            "type": "string",
+            "description": "The organizer of the event",
+            "example": "MetLife Stadium"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL for more details about the event",
+            "example": "https://www.ticketmaster.com/new-york-jets-vs-new-england-east-rutherford-new-jersey-09-19-2024/event/0000607DC76C674E"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the event was created",
+            "example": "2024-09-19T23:53:06.521Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the event was last updated",
+            "example": "2024-09-19T23:53:06.521Z"
+          }
+        }
+      },
+      "participant": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "description": "The full name of the participant",
+            "example": "Anna"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "The email address of the participant",
+            "example": "hello@mail.com"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date of birth of the participant",
+            "example": "2000-09-18T00:00:00.000Z"
+          },
+          "source": {
+            "type": "string",
+            "description": "Where the participant heard about the event",
+            "enum": [
+              "Social media",
+              "Friends",
+              "Found by myself"
+            ],
+            "example": "Friends"
+          },
+          "eventId": {
+            "type": "string",
+            "description": "The ID of the event the participant is registered for",
+            "example": "66edf0e4367f79792a65570e"
+          },
+          "_id": {
+            "type": "string",
+            "description": "The unique identifier for the participant",
+            "example": "66ee0778a929b2ea3da5ff3d"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the participant was created",
+            "example": "2024-09-20T23:38:32.849Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the participant was last updated",
+            "example": "2024-09-20T23:38:32.849Z"
+          }
+        }
+      }
+    },
+    "responses": {
+      "404": {
+        "description": "Not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Not found"
+                },
+                "data": {
+                  "type": "object",
+                  "example": {}
+                }
+              }
+            }
+          }
+        }
+      },
+      "409": {
+        "description": "Conflict - User already exists",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 409
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Email in use"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

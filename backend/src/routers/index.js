@@ -1,6 +1,9 @@
 import express from 'express';
 import { Router } from 'express';
-import { getAllEventsController } from '../controllers/events.js';
+import {
+  getAllEventsController,
+  getEventByIdController,
+} from '../controllers/events.js';
 import {
   getParticipantsController,
   registerParticipantController,
@@ -27,5 +30,7 @@ router.get(
   isValidId,
   ctrlWrapper(getParticipantsController)
 );
+
+router.get('/events/:eventId', ctrlWrapper(getEventByIdController));
 
 export default router;
