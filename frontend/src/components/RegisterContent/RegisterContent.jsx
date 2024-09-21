@@ -1,5 +1,5 @@
-import React from 'react';
 import { Form, Input, DatePicker, Radio, Button, message } from 'antd';
+import moment from 'moment';
 import { registerParticipant } from '../../api';
 import styles from './RegisterContent.module.css';
 
@@ -11,9 +11,23 @@ const RegisterContent = ({ eventId }) => {
       await registerParticipant(eventId, values);
       form.resetFields();
       message.success('Registration successful!');
-    } catch {
-      message.error('Registration failed! Please try again.');
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        message.error(error.response.data.data);
+      } else {
+        message.error('Registration failed! Please try again.');
+      }
     }
+  };
+
+  const validateDateOfBirth = date => {
+    if (!date || date.isAfter(moment().subtract(18, 'years'))) {
+      return Promise.reject(new Error('You must be at least 18 years old'));
+    }
+    if (date.isAfter(moment())) {
+      return Promise.reject(new Error('Date of birth cannot be in the future'));
+    }
+    return Promise.resolve();
   };
 
   return (
@@ -22,13 +36,14 @@ const RegisterContent = ({ eventId }) => {
       className={styles.formContainer}
       onFinish={onFinish}
       layout="vertical"
+      size="large"
     >
       <Form.Item
         label="Full Name"
         name="fullName"
         rules={[{ required: true, message: 'Full name is required' }]}
       >
-        <Input placeholder="Full Name" />
+        <Input placeholder="Enter full name" size="large" />
       </Form.Item>
 
       <Form.Item
@@ -39,15 +54,18 @@ const RegisterContent = ({ eventId }) => {
           { type: 'email', message: 'Invalid email format' },
         ]}
       >
-        <Input placeholder="Email" />
+        <Input placeholder="Enter valid email" size="large" />
       </Form.Item>
 
       <Form.Item
         label="Date of Birth"
         name="dateOfBirth"
-        rules={[{ required: true, message: 'Date of birth is required' }]}
+        rules={[
+          { required: true, message: 'Date of birth is required' },
+          { validator: (_, value) => validateDateOfBirth(value) },
+        ]}
       >
-        <DatePicker style={{ width: '100%' }} />
+        <DatePicker style={{ width: '100%' }} size="large" />
       </Form.Item>
 
       <Form.Item

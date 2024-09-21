@@ -16,7 +16,7 @@ export const initMongoDB = async () => {
 
     console.log('MongoDB connection successfully established!');
 
-    cron.schedule('0 0 * * *', async () => {
+    cron.schedule('* * * * *', async () => {
       console.log('Cron job is running...');
       try {
         await fetchEvents();

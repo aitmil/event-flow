@@ -28,23 +28,29 @@ const fetchEvents = async () => {
           })
           .join(', ');
 
-        const newEvent = new Event({
+        const existingEvent = await Event.findOne({
           title: event.name,
-          image: event.images[0].url,
-          description: classificationDetails || 'No description available',
           eventDate: event.dates.start.dateTime,
-          organizer: event._embedded.venues[0]?.name || 'Unknown',
-          url: event.url,
         });
+        if (!existingEvent) {
+          const newEvent = new Event({
+            title: event.name,
+            image: event.images[0]?.url || '',
+            description: classificationDetails || 'No description available',
+            eventDate: event.dates.start.dateTime,
+            organizer: event._embedded.venues[0]?.name || 'Unknown',
+            url: event.url,
+          });
 
-        await newEvent.save();
+          await newEvent.save();
+        }
       }
       console.log('Events fetched and stored in the database.');
     } else {
       console.log('No events found.');
     }
   } catch (error) {
-    console.error('Error fetching events:', error.message);
+    console.error('Error fetching events:', error);
   }
 };
 

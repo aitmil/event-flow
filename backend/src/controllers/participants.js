@@ -17,7 +17,6 @@ export const registerParticipantController = async (req, res, next) => {
     eventId,
   };
 
-  console.log(participant);
   const result = await registerParticipant(participant);
 
   res.status(201).json({
