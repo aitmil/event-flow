@@ -27,3 +27,7 @@ export const getAllEvents = async ({
     ...paginationData,
   };
 };
+
+export const getEventById = eventId => {
+  return Event.findById(eventId);
+};
