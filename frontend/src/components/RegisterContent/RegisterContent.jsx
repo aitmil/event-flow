@@ -41,12 +41,17 @@ const RegisterContent = ({ eventId }) => {
       <Form.Item
         label="Full Name"
         name="fullName"
-        rules={[{ required: true, message: 'Full name is required' }]}
+        rules={[
+          { required: true, message: 'Full name is required' },
+          { min: 3, message: 'Full name must be at least 3 characters long' },
+          { max: 50, message: 'Full name cannot exceed 50 characters' },
+        ]}
       >
         <Input placeholder="Enter full name" size="large" />
       </Form.Item>
 
       <Form.Item
+        className={styles.input}
         label="Email"
         name="email"
         rules={[
@@ -58,6 +63,7 @@ const RegisterContent = ({ eventId }) => {
       </Form.Item>
 
       <Form.Item
+        className={styles.input}
         label="Date of Birth"
         name="dateOfBirth"
         rules={[
@@ -69,6 +75,7 @@ const RegisterContent = ({ eventId }) => {
       </Form.Item>
 
       <Form.Item
+        className={styles.input}
         label="Where did you hear about this event?"
         name="source"
         rules={[{ required: true, message: 'Source is required' }]}
@@ -80,7 +87,7 @@ const RegisterContent = ({ eventId }) => {
         </Radio.Group>
       </Form.Item>
 
-      <Form.Item>
+      <Form.Item className={styles.btn}>
         <Button type="primary" htmlType="submit" className={styles.button}>
           Register
         </Button>

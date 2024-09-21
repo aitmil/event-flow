@@ -186,8 +186,6 @@ export default function EventsPage() {
 
   return (
     <main className={css.container}>
-      {isLoading && <Loader />}
-
       <h1 className={css.header}>Upcoming Events</h1>
 
       <div className={css.sort}>
@@ -210,6 +208,8 @@ export default function EventsPage() {
           <Option value="desc">Descending</Option>
         </Select>
       </div>
+
+      {isLoading && <Loader />}
 
       <EventsList events={events} />
 
