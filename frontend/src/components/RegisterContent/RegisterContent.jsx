@@ -21,12 +21,27 @@ const RegisterContent = ({ eventId }) => {
   };
 
   const validateDateOfBirth = date => {
-    if (!date || date.isAfter(moment().subtract(18, 'years'))) {
-      return Promise.reject(new Error('You must be at least 18 years old'));
+    const today = moment();
+    const hundredYearsAgo = today.subtract(100, 'years');
+
+    if (!date) {
+      return Promise.reject(new Error('Date of birth is required'));
     }
-    if (date.isAfter(moment())) {
+
+    if (date.isAfter(today)) {
       return Promise.reject(new Error('Date of birth cannot be in the future'));
     }
+
+    if (date.isAfter(today.subtract(18, 'years'))) {
+      return Promise.reject(new Error('You must be at least 18 years old'));
+    }
+
+    if (date.isBefore(hundredYearsAgo)) {
+      return Promise.reject(
+        new Error('Date of birth cannot be older than 100 years')
+      );
+    }
+
     return Promise.resolve();
   };
 
@@ -43,6 +58,10 @@ const RegisterContent = ({ eventId }) => {
         name="fullName"
         rules={[
           { required: true, message: 'Full name is required' },
+          {
+            pattern: /^[A-Za-z\s]+$/,
+            message: 'Name can only contain letters and spaces',
+          },
           { min: 3, message: 'Full name must be at least 3 characters long' },
           { max: 50, message: 'Full name cannot exceed 50 characters' },
         ]}
