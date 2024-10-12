@@ -8,8 +8,8 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-
 import css from './RegistrationChart.module.css';
+import { eachDayOfInterval, format, subDays } from 'date-fns';
 
 ChartJS.register(
   CategoryScale,
@@ -21,12 +21,22 @@ ChartJS.register(
 );
 
 const RegistrationChart = ({ data }) => {
+  const today = new Date();
+
+  const last30Days = eachDayOfInterval({
+    start: subDays(today, 29),
+    end: today,
+  }).map(date => format(date, 'yyyy-MM-dd'));
+
   const chartData = {
-    labels: data.map(item => item.date),
+    labels: last30Days,
     datasets: [
       {
         label: 'Registrations',
-        data: data.map(item => item.registrations),
+        data: last30Days.map(date => {
+          const registrationForDate = data.find(item => item.date === date);
+          return registrationForDate ? registrationForDate.registrations : 0;
+        }),
         backgroundColor: 'rgba(22, 119, 255, 0.6)',
         borderColor: 'rgba(22, 119, 255, 1)',
         borderWidth: 1,
@@ -42,6 +52,10 @@ const RegistrationChart = ({ data }) => {
           display: true,
           text: 'Date',
         },
+        ticks: {
+          autoSkip: true,
+          maxTicksLimit: 30,
+        },
       },
       y: {
         title: {
@@ -55,7 +69,7 @@ const RegistrationChart = ({ data }) => {
 
   return (
     <>
-      <h2 className={css.title}>Registrations Chart By Days</h2>
+      <h2 className={css.title}>Registrations Chart (Last 30 Days)</h2>
       <Bar data={chartData} options={options} />
     </>
   );
