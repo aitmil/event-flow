@@ -22,7 +22,8 @@ const RegisterContent = ({ eventId }) => {
 
   const validateDateOfBirth = date => {
     const today = moment();
-    const hundredYearsAgo = today.subtract(100, 'years');
+    const eighteenYearsAgo = moment().subtract(18, 'years');
+    const hundredYearsAgo = moment().subtract(100, 'years');
 
     if (!date) {
       return Promise.reject(new Error('Date of birth is required'));
@@ -32,7 +33,7 @@ const RegisterContent = ({ eventId }) => {
       return Promise.reject(new Error('Date of birth cannot be in the future'));
     }
 
-    if (date.isAfter(today.subtract(18, 'years'))) {
+    if (date.isAfter(eighteenYearsAgo)) {
       return Promise.reject(new Error('You must be at least 18 years old'));
     }
 
@@ -85,10 +86,7 @@ const RegisterContent = ({ eventId }) => {
         className={styles.input}
         label="Date of Birth"
         name="dateOfBirth"
-        rules={[
-          { required: true, message: 'Date of birth is required' },
-          { validator: (_, value) => validateDateOfBirth(value) },
-        ]}
+        rules={[{ validator: (_, value) => validateDateOfBirth(value) }]}
       >
         <DatePicker style={{ width: '100%' }} size="large" />
       </Form.Item>
